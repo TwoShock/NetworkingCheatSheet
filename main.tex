@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+\title{451L Cheat Command Cheat Sheet}
+\author{Mohamad Abou Harb}
+\renewcommand{\baselinestretch}{2}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Changing Device IP's:}
+\begin{itemize}
+    \item pc: sudo ifconfig eth0 'ip' netmask 'netmask'\\
+          ex: sudo ifconfig eth0 10.42.1.10 netmask 255.255.255.0
+    \item router: configure terminal\\
+          router[config]: interface FastEthernet0/0\\
+          router[config]: ip address 'ip' 'netmask'\\
+          router[config]: no shutdown\\
+          router[config]: end\\
+\end{itemize}
+\newpage
+
+\section{Displaying routing tables for devices}
+\begin{itemize}
+    \item pc: netstat -rn
+    \item router: show ip route
+\end{itemize}
+\newpage
+\section{Adding/Deleting Routes to Devices}
+\begin{itemize}
+    \item pc: sudo route add -net 10.42.1.10 netmask 255.255.255.0 gw 10.42.3.4\\
+          pc: sudo route del -net 10.42.1.10 netmask 255.255.255.0 gw 10.42.3.4
+    \item pc: route add default gw 10.42.3.4\\
+          pc: route del default gw 10.42.3.4
+    \item router[config]: ip route 10.42.1.10 255.255.255.0 10.42.3.1
+\end{itemize}
+\subsection{Clearing ip routes for devices}
+\begin{itemize}
+    \item pc: sudo ifconfig eth0 down\\
+          pc: sudo ifconfig eth0 up\\
+          This command flushes the routing table on the pc.
+    \item router: clear ip route *
+\end{itemize}
+
+\end{document}
